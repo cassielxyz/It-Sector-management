@@ -1,0 +1,29 @@
+digraph G { graph [bgcolor="#081426", pad="0.35", nodesep="0.45", ranksep="0.65", fontname="DejaVu Sans"]; node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.6, color="#334155", fontcolor="#f8fafc", fillcolor="#10233d", margin="0.18,0.12"]; edge [fontname="DejaVu Sans", fontsize=9, color="#64748b", fontcolor="#cbd5e1", penwidth=1.5, arrowsize=.75]; rankdir=LR;
+ threat [label="Threats / Failure Modes
+Rogue DHCP • ARP spoofing
+Unauthorized devices • Lateral movement
+Public-service exposure • Link failure", fillcolor="#3b1720", color="#fb7185"];
+ edgec [label="Edge / DMZ Controls
+DMZ VLAN 998
+IPv4 + IPv6 ACLs", fillcolor="#3b2612", color="#f59e0b"];
+ segment [label="Segmentation Controls
+VLAN boundaries
+Department ACLs
+IoT isolation", fillcolor="#26173d", color="#a78bfa"];
+ access [label="Access-Layer Controls
+Port Security
+DHCP Snooping
+Dynamic ARP Inspection
+PortFast + STP", fillcolor="#102c45", color="#38bdf8"];
+ mgmt [label="Management Controls
+Restricted VTY source
+Syslog + SNMP monitoring", fillcolor="#18331e", color="#4ade80"];
+ resil [label="Availability Controls
+OSPF alternate paths
+LACP EtherChannel
+Multiple routed links", fillcolor="#0f3440", color="#2dd4bf"];
+ asset [label="Protected Enterprise Assets
+Users • Servers • Voice
+Wireless • IoT • Public services", fillcolor="#10233d", color="#e2e8f0"];
+ threat -> edgec -> segment -> access -> asset; mgmt -> asset [style=dashed]; resil -> asset [style=dashed];
+}

@@ -1,0 +1,9 @@
+digraph G { graph [bgcolor="#081426", pad="0.35", nodesep="0.45", ranksep="0.65", fontname="DejaVu Sans"]; node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.6, color="#334155", fontcolor="#f8fafc", fillcolor="#10233d", margin="0.18,0.12"]; edge [fontname="DejaVu Sans", fontsize=9, color="#64748b", fontcolor="#cbd5e1", penwidth=1.5, arrowsize=.75]; rankdir=LR;
+ users [label="Department VLANs", color="#38bdf8"];
+ r1 [label="Router 1", fillcolor="#3a1717", color="#ef4444"]; r2 [label="Router 2", fillcolor="#3a1717", color="#ef4444"]; r3 [label="Router 3", fillcolor="#3a1717", color="#ef4444"]; r4 [label="Router 4", fillcolor="#3a1717", color="#ef4444"];
+ svc [label="Enterprise Services", color="#c084fc"]; dmz [label="DMZ", color="#f59e0b"];
+ users -> r1; r1 -> r2 [label="primary path", color="#38bdf8"]; r1 -> r3 [label="alternate", color="#34d399"]; r3 -> r4 [color="#34d399"]; r2 -> r4 [color="#38bdf8"]; r4 -> svc; r4 -> dmz;
+ fail [label="If one routed link fails,
+OSPF can reconverge over another path", shape=note, fillcolor="#173628", color="#4ade80"];
+ fail -> r3 [style=dashed, color="#4ade80"];
+}

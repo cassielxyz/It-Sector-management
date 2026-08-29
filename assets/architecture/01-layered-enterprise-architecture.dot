@@ -1,0 +1,32 @@
+digraph G { graph [bgcolor="#081426", pad="0.35", nodesep="0.45", ranksep="0.65", fontname="DejaVu Sans"]; node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.6, color="#334155", fontcolor="#f8fafc", fillcolor="#10233d", margin="0.18,0.12"]; edge [fontname="DejaVu Sans", fontsize=9, color="#64748b", fontcolor="#cbd5e1", penwidth=1.5, arrowsize=.75]; rankdir=TB;
+ internet [label="External / Public Network
+(simulated enterprise edge)", fillcolor="#3b1b24", color="#fb7185"];
+ dmz [label="DMZ / Public Services
+VLAN 998 • 10.0.254.0/24
+Public Web + Email", fillcolor="#3b2612", color="#f59e0b"];
+ core [label="Routed Core
+6 × Cisco 1941 • OSPF Area 0
+15 inter-router paths", fillcolor="#3a1717", color="#ef4444"];
+ dist [label="Distribution / Aggregation
+2960 switching • 802.1Q trunks
+LACP EtherChannel", fillcolor="#102c45", color="#38bdf8"];
+ access [label="Access Layer
+Users • Printers • IP Phones
+PortFast • Port Security", fillcolor="#11283e", color="#60a5fa"];
+ srv [label="Core Services
+DHCP • DNS • Web • File • IoT Registration", fillcolor="#2a183c", color="#c084fc"];
+ sec [label="Security Policy
+ACLs • DHCP Snooping • DAI
+DMZ/IoT/Department Segmentation", fillcolor="#26173d", color="#a78bfa"];
+ ops [label="Operations / Monitoring
+Syslog • SNMP • Servers
+VLAN 118", fillcolor="#18331e", color="#4ade80"];
+ voice [label="Unified Communications
+Voice VLAN 80 • Cisco CME
+10 directory numbers", fillcolor="#0f3440", color="#2dd4bf"];
+ wlan [label="Wireless / IoT
+WLC • LAP • CEO Wi-Fi
+IoT VLANs 100/109", fillcolor="#173628", color="#34d399"];
+ internet -> dmz [label="controlled exposure"]; dmz -> core [label="filtered routing"]; core -> dist -> access;
+ core -> srv; core -> ops; core -> voice; core -> wlan; sec -> core [style=dashed, color="#a78bfa"]; sec -> access [style=dashed, color="#a78bfa"];
+}

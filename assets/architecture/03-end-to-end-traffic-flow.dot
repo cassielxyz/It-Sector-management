@@ -1,0 +1,20 @@
+digraph G { graph [bgcolor="#081426", pad="0.35", nodesep="0.45", ranksep="0.65", fontname="DejaVu Sans"]; node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.6, color="#334155", fontcolor="#f8fafc", fillcolor="#10233d", margin="0.18,0.12"]; edge [fontname="DejaVu Sans", fontsize=9, color="#64748b", fontcolor="#cbd5e1", penwidth=1.5, arrowsize=.75]; rankdir=LR;
+ client [label="Client Endpoint
+PC / Laptop / Phone", fillcolor="#102c45", color="#38bdf8"];
+ sw [label="Access Switch
+VLAN membership
+L2 security", fillcolor="#102c45", color="#60a5fa"];
+ gw [label="Default Gateway
+802.1Q subinterface
+ACL enforcement", fillcolor="#3a1717", color="#ef4444"];
+ dhcp [label="DHCP 10.0.15.10
+Central IP assignment", fillcolor="#2a183c", color="#c084fc"];
+ dns [label="DNS 10.0.15.11
+Name resolution", fillcolor="#2a183c", color="#c084fc"];
+ svc [label="Internal / DMZ Service
+Web • File • Email • IoT", fillcolor="#3b2612", color="#f59e0b"];
+ core [label="OSPF Core
+Best-path routing", fillcolor="#3a1717", color="#f87171"];
+ client -> sw [label="Ethernet / Wi-Fi"]; sw -> gw [label="VLAN traffic"]; gw -> dhcp [label="DHCP relay", color="#a78bfa"]; dhcp -> client [label="IP, GW, DNS", style=dashed, color="#a78bfa"];
+ client -> dns [label="DNS query", color="#c084fc"]; dns -> client [label="service IP", style=dashed, color="#c084fc"]; gw -> core [label="inter-subnet traffic"]; core -> svc [label="routed + filtered"]; svc -> client [label="application response", style=dashed];
+}

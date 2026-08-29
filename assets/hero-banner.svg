@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="520" viewBox="0 0 1440 520">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#081426"/><stop offset="0.48" stop-color="#112a4f"/><stop offset="1" stop-color="#32176b"/></linearGradient>
+  <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#38bdf8"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f43f5e"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="10" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1440" height="520" rx="30" fill="url(#bg)"/>
+<circle cx="1190" cy="90" r="180" fill="#38bdf8" opacity=".08"/><circle cx="1330" cy="370" r="230" fill="#a855f7" opacity=".09"/>
+<g opacity=".22" stroke="#60a5fa" stroke-width="2">
+  <path d="M920 130 L1040 85 L1160 145 L1280 95 L1370 165"/><path d="M930 220 L1050 260 L1185 205 L1300 265 L1390 230"/>
+  <path d="M1040 85 L1050 260 M1160 145 L1185 205 M1280 95 L1300 265"/>
+</g>
+<g fill="#7dd3fc" filter="url(#glow)"><circle cx="920" cy="130" r="7"/><circle cx="1040" cy="85" r="7"/><circle cx="1160" cy="145" r="7"/><circle cx="1280" cy="95" r="7"/><circle cx="1370" cy="165" r="7"/><circle cx="930" cy="220" r="7"/><circle cx="1050" cy="260" r="7"/><circle cx="1185" cy="205" r="7"/><circle cx="1300" cy="265" r="7"/><circle cx="1390" cy="230" r="7"/></g>
+<text x="72" y="95" fill="#7dd3fc" font-family="Arial, DejaVu Sans, sans-serif" font-size="25" font-weight="700" letter-spacing="3">CISCO PACKET TRACER • ENTERPRISE NETWORK</text>
+<text x="72" y="165" fill="#ffffff" font-family="Arial, DejaVu Sans, sans-serif" font-size="52" font-weight="800">Secure Enterprise IT Company Network</text>
+<text x="72" y="215" fill="#cbd5e1" font-family="Arial, DejaVu Sans, sans-serif" font-size="24">Routing • Switching • Services • Voice • Wireless • IoT • DMZ • Monitoring • Security</text>
+<rect x="72" y="245" width="700" height="7" rx="3" fill="url(#line)"/>
+<g font-family="Arial, DejaVu Sans, sans-serif">
+  <g transform="translate(72,300)"><rect width="210" height="118" rx="18" fill="#0b1e36" stroke="#38bdf8" opacity=".96"/><text x="24" y="47" fill="#38bdf8" font-size="34" font-weight="800">129</text><text x="24" y="79" fill="#e2e8f0" font-size="18">devices</text><text x="24" y="103" fill="#94a3b8" font-size="14">enterprise-scale lab</text></g>
+  <g transform="translate(302,300)"><rect width="210" height="118" rx="18" fill="#0b1e36" stroke="#8b5cf6" opacity=".96"/><text x="24" y="47" fill="#a78bfa" font-size="34" font-weight="800">137</text><text x="24" y="79" fill="#e2e8f0" font-size="18">network links</text><text x="24" y="103" fill="#94a3b8" font-size="14">wired + routed paths</text></g>
+  <g transform="translate(532,300)"><rect width="210" height="118" rx="18" fill="#0b1e36" stroke="#f43f5e" opacity=".96"/><text x="24" y="47" fill="#fb7185" font-size="34" font-weight="800">22</text><text x="24" y="79" fill="#e2e8f0" font-size="18">VLAN IDs</text><text x="24" y="103" fill="#94a3b8" font-size="14">segmented trust zones</text></g>
+  <g transform="translate(762,300)"><rect width="210" height="118" rx="18" fill="#0b1e36" stroke="#22c55e" opacity=".96"/><text x="24" y="47" fill="#4ade80" font-size="34" font-weight="800">18</text><text x="24" y="79" fill="#e2e8f0" font-size="18">DHCP pools</text><text x="24" y="103" fill="#94a3b8" font-size="14">central address control</text></g>
+</g>
+<text x="72" y="478" fill="#94a3b8" font-family="Arial, DejaVu Sans, sans-serif" font-size="17">A multi-department campus design built to model practical enterprise networking and defense-in-depth.</text>
+</svg>

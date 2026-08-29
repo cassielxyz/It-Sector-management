@@ -1,0 +1,15 @@
+digraph G { graph [bgcolor="#081426", pad="0.35", nodesep="0.45", ranksep="0.65", fontname="DejaVu Sans"]; node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.6, color="#334155", fontcolor="#f8fafc", fillcolor="#10233d", margin="0.18,0.12"]; edge [fontname="DejaVu Sans", fontsize=9, color="#64748b", fontcolor="#cbd5e1", penwidth=1.5, arrowsize=.75]; rankdir=LR; splines=ortho;
+ subgraph cluster_lab { label="This Project — Traditional Enterprise Campus Foundation"; color="#38bdf8"; fontcolor="#7dd3fc"; style="rounded";
+ lab1 [label="VLAN + ACL segmentation
+Router-on-a-stick", color="#38bdf8"]; lab2 [label="OSPF routed core
+Distributed control plane", color="#ef4444"]; lab3 [label="WLC/LAP wireless
+CME voice", color="#34d399"]; lab4 [label="SNMP + Syslog
+Manual CLI operations", color="#c084fc"]; lab1 -> lab2 -> lab3 -> lab4 [style=invis]; }
+ subgraph cluster_modern { label="Modern Enterprise Evolution"; color="#a78bfa"; fontcolor="#c4b5fd"; style="rounded";
+ m1 [label="Identity-aware segmentation
+802.1X / NAC / microsegmentation", color="#a78bfa"]; m2 [label="SD-Access / EVPN-VXLAN / SD-WAN
+Policy-driven overlays", color="#f43f5e"]; m3 [label="Cloud-managed Wi-Fi
+SASE / ZTNA / NGFW", color="#34d399"]; m4 [label="Streaming telemetry + SIEM
+API / IaC automation", color="#c084fc"]; m1 -> m2 -> m3 -> m4 [style=invis]; }
+ lab1 -> m1 [label="evolves to", color="#64748b"]; lab2 -> m2 [label="underlay / policy", color="#64748b"]; lab3 -> m3 [label="centralized control", color="#64748b"]; lab4 -> m4 [label="operations maturity", color="#64748b"];
+}
