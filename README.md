@@ -956,11 +956,7 @@ The major difference is **intentional separation**. Instead of thinking only abo
 
 ---
 
-## How this compares with modern enterprise architecture
 
-<p align="center"><img src="assets/architecture/04-traditional-vs-modern-enterprise.svg" alt="Traditional versus modern enterprise architecture" width="100%" /></p>
-
-This project is best described as a **traditional enterprise campus foundation**. The core ideas are still relevant, but modern production networks often add controller-based policy, identity, automation and cloud security on top.
 
 | Area | This project | Common modern enterprise evolution | Relationship |
 | --- | --- | --- | --- |
@@ -994,110 +990,6 @@ The following ideas do **not** become obsolete just because a company uses SD-WA
 
 Modern platforms automate and scale these principles; they do not remove the need to understand them.
 
----
-
-## Production hardening roadmap
-
-If I were converting this topology into a production enterprise design, I would evolve it in phases.
-
-### Phase 1 — Correct the saved-state inconsistencies
-
-1. Normalize the five Router0 transit links to the correct `/30` masks.
-2. Attach and validate the `IOT_RESTRICTED` ACL.
-3. Correct the IoT DHCP DNS address to `10.0.15.11`.
-4. Clear duplicate/stale DHCP leases.
-5. Remove duplicate sticky MAC entries.
-6. Resolve Switch15 Fa0/5 as either a trunk or access port—not both.
-7. Standardize VLAN names/numbers and interface descriptions.
-
-### Phase 2 — Strengthen device management
-
-1. SSH-only management.
-2. AAA using TACACS+/RADIUS.
-3. Named admin accounts with strong secrets.
-4. Management VRF or dedicated out-of-band network.
-5. SNMPv3 instead of community-based SNMP.
-6. NTP on every infrastructure device.
-7. Central configuration backup and version control.
-8. Role-based administrative access.
-
-### Phase 3 — Strengthen access security
-
-1. 802.1X for managed endpoints.
-2. MAB for phones/printers/IoT that cannot use 802.1X.
-3. NAC policy by device/user identity.
-4. IP Source Guard.
-5. BPDU Guard on edge ports.
-6. Storm control.
-7. Disable/shutdown unused ports and place them in an unused VLAN.
-
-### Phase 4 — Add real perimeter security
-
-1. Redundant NGFW pair.
-2. NAT and explicit inbound/outbound policy.
-3. IDS/IPS.
-4. WAF/reverse proxy for the public web service.
-5. Secure mail gateway or cloud email security.
-6. DDoS protection.
-7. TLS certificate lifecycle management.
-
-### Phase 5 — Remove single points of failure
-
-1. Dual core/distribution devices.
-2. HSRP/VRRP first-hop redundancy.
-3. Redundant DHCP/DNS.
-4. HA WLC or cloud-managed wireless.
-5. Redundant voice/call-control platform.
-6. Dual-homed access switches where business-critical.
-7. Redundant power/uplinks.
-
-### Phase 6 — Modernize operations
-
-1. SIEM integration.
-2. NetFlow/IPFIX or streaming telemetry.
-3. Automated configuration compliance.
-4. Network source-of-truth/IPAM.
-5. Infrastructure-as-Code / Ansible-style deployment.
-6. Continuous backup and drift detection.
-7. Synthetic reachability and application monitoring.
-
-### Phase 7 — Move toward identity / zero-trust policy
-
-1. Replace broad IP-based trust with identity-aware policy.
-2. Use ZTNA for remote/private application access.
-3. Use SASE/SSE where business requirements justify it.
-4. Microsegment high-value systems.
-5. Apply device posture and continuous authentication.
-
----
-
-## Known saved-state issues
-
-I keep known issues in the repository because an engineering project should document what remains to be corrected rather than hiding it.
-
-| Severity | Finding | What I would do |
-| --- | --- | --- |
-| High | Transit subnet-mask inconsistency | Five Router0-facing point-to-point links use `/24` on Router0 while the peer side uses `/30`. I would normalize these to `/30` before production. |
-| High | Raw lab secrets exist inside the Packet Tracer file | The project stores wireless/email/SNMP credential material. I keep secret values out of the public Markdown/config copies and would rotate any value reused elsewhere. |
-| Medium | IoT ACL defined but not attached | `IOT_RESTRICTED` exists on Router3 but is not applied with `ip access-group` in the saved running configuration. The intended isolation policy is stronger than the current enforcement. |
-| Medium | Switch15 access/trunk intent conflict | FastEthernet0/5 has an access VLAN configured while the interface operates as a trunk. I would correct the role to one unambiguous mode. |
-| Medium | IoT DHCP DNS value needs correction | The `Iot devices` pool distributes `10.0.15.12` as DNS even though the dedicated DNS server is `10.0.15.11`. |
-| Medium | Duplicate saved DHCP lease | `10.0.100.50` appears with more than one MAC in the saved lease database. I would clear stale bindings and retest uniqueness. |
-| Medium | Duplicate sticky MAC entries on Switch11 | Several sticky MAC values appear on more than one access port; these should be cleaned so a MAC is bound only where intended. |
-| Medium | SNMPv2-style community | Router4 uses community-based SNMP. A production design should use SNMPv3 or secure streaming telemetry. |
-| Low | IOS password encryption disabled | The saved IOS configs contain `no service password-encryption`. In production I would use proper secrets/AAA and avoid treating reversible IOS obfuscation as real protection. |
-
-### Transit mask mismatch details
-
-The intended point-to-point design is `/30`, but Router0 currently has `/24` masks on these links while peers use `/30`:
-
-- Router0 `Serial0/1/0 10.0.25.2/24` ↔ Router2 `10.0.25.1/30`
-- Router0 `Serial0/1/1 10.0.21.2/24` ↔ Router1 `10.0.21.1/30`
-- Router0 `Serial0/0/0 10.0.20.2/24` ↔ Router4 `10.0.20.1/30`
-- Router0 `Serial0/0/1 10.0.30.2/24` ↔ Router5 `10.0.30.1/30`
-- Router0 `GigabitEthernet0/0 10.0.28.2/24` ↔ Router3 `10.0.28.1/30`
-
-These addresses can still appear to communicate because the host portions overlap, but inconsistent masks create ambiguous network assumptions and should be fixed.
 
 ---
 
@@ -1322,19 +1214,6 @@ This project demonstrates practical knowledge across several networking domains:
     └── command_history_sanitized.csv
 ```
 
-### Documentation map
-
-- **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)** — routed interfaces, VLAN termination, direct router links and architecture details.
-- **[`docs/DEVICE_INVENTORY.md`](docs/DEVICE_INVENTORY.md)** — complete device and physical/logical link inventory.
-- **[`docs/CONFIGURATION_REFERENCE.md`](docs/CONFIGURATION_REFERENCE.md)** — per-device configuration explanation plus public-safe IOS configuration copies.
-- **[`docs/SERVICES_WIRELESS_VOICE_IOT.md`](docs/SERVICES_WIRELESS_VOICE_IOT.md)** — detailed DHCP/DNS/server/wireless/voice/IoT data.
-- **[`docs/IMPLEMENTATION_TIMELINE.md`](docs/IMPLEMENTATION_TIMELINE.md)** — full project build/troubleshooting timeline.
-- **[`docs/COMMAND_HISTORY_FULL.md`](docs/COMMAND_HISTORY_FULL.md)** — the full saved CLI command record.
-- **[`docs/VALIDATION_AND_FINDINGS.md`](docs/VALIDATION_AND_FINDINGS.md)** — configuration review and hardening items.
-- **[`configs/`](configs/)** — router/switch running-config references with secret-bearing values omitted from the public copies.
-- **[`data/`](data/)** — CSV/JSON inventories for analysis or automation.
-
----
 
 ## Opening and reviewing the project
 
